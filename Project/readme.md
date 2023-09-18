@@ -1,6 +1,6 @@
 # Crop price prediction
 
-### The project aims at providing the modal price for the crops considered depending on the market and arrivals. The crops considered includes
+### The project aims at providing the modal price for the particular crops depending on the market and arrivals. The crops considered are:
 * Arecanut
     * Coco
     * Old variety
