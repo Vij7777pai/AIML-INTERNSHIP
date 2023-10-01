@@ -27,15 +27,15 @@ pip install pandas numpy matplotlib seaborn keras tensorflow scikit-learn
 
 ## Dataset
 
-The dataset is stored in Excel format (.xlsx) located in the Datasets folder. 
-- ./Dataset/Coca/Coca(2015-2022).xlsx for Arecanut
-- ./Dataset/Grade-I/GRADE-I(2015-2022).xlsx for Coconut
+*The dataset is stored in Excel format (.xlsx) located in the Datasets folder. 
+  - ./Dataset/Coca/Coca(2015-2022).xlsx for Arecanut
+  - ./Dataset/Grade-I/GRADE-I(2015-2022).xlsx for Coconut
 
 ## Process
 
 ### Data Collection 
 
-Collected historical crop price data for Arecanut and Coconut in the Mangaluru market from 01/01/2015 to 31/12/2022 from [here](https://www.krishimaratavahini.kar.nic.in/department.aspx).
+* Collected historical crop price data for Arecanut and Coconut in the Mangaluru market from 01/01/2015 to 31/12/2022 from [here](https://www.krishimaratavahini.kar.nic.in/department.aspx).
 
 ### Data Preprocessing
 
@@ -46,12 +46,12 @@ Collected historical crop price data for Arecanut and Coconut in the Mangaluru m
 
 ### Feature Extracion
 
-Extracted relevant features that can improve prediction accuracy such as Minimum, Maximum and Modal prices.
+* Extracted relevant features that can improve prediction accuracy such as Minimum, Maximum and Modal prices.
 
 ### Sequence Generation
 
 * Generated sequences of data points for training, where each sequence contains a window of historical data that the LSTM model will use to make predictions.
-    * In this project, we utilize an input sequence of 3 consecutive days' worth of historical crop price data, and our LSTM model leverages this information to make accurate predictions of future prices in the Mangaluru market 
+    * In this project, we have utilized an input sequence of 3 consecutive days' worth of historical crop price data, and our LSTM model leverages this information to make accurate predictions of future prices in the Mangaluru market 
 
 ### Model Architecture
 
@@ -68,26 +68,26 @@ model.add(Dense(3))
 
 ### Model Training
 
-Trained the LSTM model using the training dataset. Monitored performance on the validation set to prevent overfitting.
+* Trained the LSTM model using the training dataset. Monitored performance on the validation set to prevent overfitting.
 
 ### Model Evaluation
 
-Evaluated the model's performance on the test dataset using metrics such as mean absolute error (MAE) and mean squared error (MSE). Visualized predictions against actual prices.
+* Evaluated the model's performance on the test dataset using metrics such as mean absolute error (MAE) and mean squared error (MSE). Visualized predictions against actual prices.
 
 ### Saving the Best Model
 
-The best-performing model is saved in the 'models' folder for future use.
+* The best-performing model is saved in the 'models' folder for future use.
 
 ### Saving the scaler objects 
 
-Scaler objects used for data normalization are saved in the Scaler Objects folder. These scalers can be applied to new data before making predictions with the trained model.
+* Scaler objects used for data normalization are saved in the Scaler Objects folder. These scalers can be applied to new data before making predictions with the trained model.
 
 ### Hyperparameter Tuning
 
-Experimented with different hyperparameter to optimize the model's performance.
-    * Changing the input sequence
-    * Adding new units, layers
-    * learning rate, epochs
+* Experimented with different hyperparameter to optimize the model's performance.
+  * Changing the input sequence
+  * Adding new units, layers
+  * learning rate, epochs
 
 ### Fine-tuning and Deployment
 
@@ -98,7 +98,7 @@ To run the streamlit_deploy.py code, you'll need to install the streamlit module
 ```bash
 pip install streamlit
 ```
-Once after installing 
+Once after installing run this command in Command prompt
 
 ```bash
 streamlit run streamlit_deploy.py
