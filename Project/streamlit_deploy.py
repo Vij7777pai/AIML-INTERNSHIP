@@ -15,8 +15,6 @@ st.markdown("""
 
 """)
 
-
-
 def scale_dataframe(dataframe_dummy, selected_scaler):
     # Scale the data using the selected scaler
     columns_to_scale = ['Min', 'Max', 'Modal']
@@ -38,7 +36,7 @@ def plot_trend(dataframe_dummy, title, x_label, y_label):
 
     st.pyplot(fig)
 
-def plot_predictions_4D_streamlit(model, X, y, start=0, end=100, tag='Title'):
+def plot_predictions_streamlit(model, X, y, start=0, end=100, tag='Title'):
     pred = model.predict(X, verbose=0)
     df = pd.DataFrame({
         'predicted_Min': pred[:, 0],
@@ -121,7 +119,7 @@ def make_and_store_predictions(input, num_days=10):
     return recursive_prediction
 
 def plot_future_prediction(recursive_prediction):
-    st.title("Future Predictions for the Next 10 Days")
+    st.title("Predictions for the Next 10 Days")
     
     # Create a list of days from 1 to 10
     days = list(range(1, 11))
@@ -156,12 +154,12 @@ if __name__ == '__main__':
 
     # Loading the LSTM model for the selected product
     if selected_product == "Arecanut (Coca)":
-        model_path = './models/Coca/model_coca(3,82.989).keras'
+        model_path = './models/Coca/model_coca(3,3) 83.138.keras'
         scaler_path = './Scaler Objects/scaler_coca.pkl'
     elif selected_product == "Coconut (Grade-I)":
         model_path = './models/GradeI/model_gradeI(3,3)91.3473.keras'
         scaler_path = './Scaler Objects/scaler_grade-I.pkl'
-
+        
     # Load the selected model and scaler
     selected_model = tf.keras.models.load_model(model_path)
     with open(scaler_path, 'rb') as scaler_file:
@@ -169,53 +167,21 @@ if __name__ == '__main__':
 
     # Reading the CSV file for the selected product
     if selected_product == "Arecanut (Coca)":
-        csv_path = './Dataset/Coca/coca_test.csv'
-        dataframe = pd.read_csv(csv_path)
+        excel_coca = pd.read_excel('./Dataset/Coca/Coca_dataset.xlsx')
+        dataframe = pd.DataFrame(excel_coca)
         dataframe = dataframe.set_index('Date')
     elif selected_product == "Coconut (Grade-I)":
         excel_gradeI = pd.read_excel('./Dataset/Grade-I/grade-I_test.xlsx')
         dataframe = pd.DataFrame(excel_gradeI)
         dataframe = dataframe.set_index('Date')
 
-
-
     if selected_product == 'Arecanut (Coca)':
-        dataframe = scale_dataframe(dataframe, selected_scaler)
-
-        plot_trend(dataframe, title='Arecanut (Coca) Trend', x_label='Date', y_label='Modal Price')
-    
-        #For coca
-        WINDOW_SIZE = 3 
-        X_coca, y_coca= df_to_X_y(dataframe,WINDOW_SIZE)
-    
-        X_train_coca, y_train_coca = X_coca[:1500], y_coca[:1500]
-        X_val_coca, y_val_coca = X_coca[1500:1750], y_coca[1500:1750]
-        X_test_coca, y_test_coca = X_coca[1750:] ,y_coca[1750:]
-
-    
-        # Create a Streamlit app
-        st.title("Prediction Plots")
-        st.header("Train and Plaidation Plots")
-    
-        # Display plots for training data
-        st.subheader("Training Data")
-        plot_predictions_4D_streamlit(model=selected_model, X=X_train_coca, y=y_train_coca,start=0, end=len(X_train_coca), tag="Training")
-
-        # Display plots for validation data
-        st.subheader("Validation Data")
-        plot_predictions_4D_streamlit(model=selected_model, X=X_val_coca, y=y_val_coca, start=0, end=len(X_val_coca), tag="Training")
-
-        # Display plots for test data
-        st.subheader("Test Data")
-        plot_predictions_4D_streamlit(model=selected_model, X=X_test_coca, y=y_test_coca, start=0, end=len(X_test_coca), tag="Training")
-
-
         # Streamlit App
         st.title("Coca Price Predictor")
         st.subheader("Predict Tomorrow's Coca Price")
         st.write("Enter the previous three days' prices:")
         # Input fields for user
-        st.write("Enter the prices for the last three days:")
+        # st.write("Enter the prices for the last three days:")
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -270,50 +236,52 @@ if __name__ == '__main__':
         recursive_prediction = make_and_store_predictions(input_array, num_days=10)
     
         # Check if the "Future Predictions for Next 10 Days" button is clicked
-        if st.button("Future Predictions for Next 10 Days") and len(recursive_prediction) >= 10:
-            st.write("Future Predictions for the Next 10 Days:")
+        if st.button("Predictions for Next 10 Days") and len(recursive_prediction) >= 10:
+            st.write("Predictions for the Next 10 Days:")
             for i, prediction in enumerate(recursive_prediction, start=1):
                 st.write(f"Day {i} - Minimum Price: {prediction[0]:.4f}, Maximum Price: {prediction[1]:.3f}, Modal Price: {prediction[2]:.3f}")
     
             plot_future_prediction(recursive_prediction)
-    
-    if selected_product == 'Coconut (Grade-I)':
-        dataframe = scale_dataframe(dataframe, selected_scaler)
-
-        plot_trend(dataframe, title='Coconut (Grade-I) Trend',x_label='Date', y_label='Modal Price')
         
+        plot_trend(dataframe, title='Arecanut (Coca) Trend', x_label='Date', y_label='Modal Price')
+
+        dataframe = scale_dataframe(dataframe, selected_scaler)
+    
         #For coca
         WINDOW_SIZE = 3 
-        X_gradeI, y_gradeI= df_to_X_y(dataframe,WINDOW_SIZE)
-        
-        X_train_gradeI, y_train_gradeI = X_gradeI[:1300], y_gradeI[:1300]
-        X_val_gradeI, y_val_gradeI = X_gradeI[1300:1400], y_gradeI[1300:1400]
-        X_test_gradeI, y_test_gradeI = X_gradeI[1400:] ,y_gradeI[1400:] 
+        X_coca, y_coca= df_to_X_y(dataframe,WINDOW_SIZE)
+    
+        X_train_coca, y_train_coca = X_coca[:1500], y_coca[:1500]
+        X_val_coca, y_val_coca = X_coca[1500:1750], y_coca[1500:1750]
+        X_test_coca, y_test_coca = X_coca[1750:] ,y_coca[1750:]
 
-        
+    
         # Create a Streamlit app
         st.title("Prediction Plots")
-        st.header("Train and Vlaidation Plots")
-        
+        st.header("Train and Plaidation Plots")
+    
         # Display plots for training data
         st.subheader("Training Data")
-        plot_predictions_4D_streamlit(model=selected_model, X=X_train_gradeI, y=y_train_gradeI,start=0, end=len(X_train_gradeI), tag="Training")
+        plot_predictions_streamlit(model=selected_model, X=X_train_coca, y=y_train_coca,start=0, end=len(X_train_coca), tag="Training")
 
         # Display plots for validation data
         st.subheader("Validation Data")
-        plot_predictions_4D_streamlit(model=selected_model, X=X_val_gradeI, y=y_val_gradeI, start=0, end=len(X_val_gradeI), tag="Training")
+        plot_predictions_streamlit(model=selected_model, X=X_val_coca, y=y_val_coca, start=0, end=len(X_val_coca), tag="Training")
 
         # Display plots for test data
         st.subheader("Test Data")
-        plot_predictions_4D_streamlit(model=selected_model, X=X_test_gradeI, y=y_test_gradeI, start=0, end=len(X_test_gradeI), tag="Training")
+        plot_predictions_streamlit(model=selected_model, X=X_test_coca, y=y_test_coca, start=0, end=len(X_test_coca), tag="Training")
+    
 
-
+    # For Coconut    
+    if selected_product == 'Coconut (Grade-I)':
+        
         # Streamlit App
         st.title("Coconut Price Predictor")
         st.subheader("Predict Tomorrow's Coconut Price")
         st.write("Enter the previous three days' prices:")
         # Input fields for user
-        st.write("Enter the prices for the last three days:")
+        # st.write("Enter the prices for the last three days:")
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -374,4 +342,37 @@ if __name__ == '__main__':
                 st.write(f"Day {i} - Minimum Price: {prediction[0]:.4f}, Maximum Price: {prediction[1]:.3f}, Modal Price: {prediction[2]:.3f}")
         
             plot_future_prediction(recursive_prediction)
+        
+
+        plot_trend(dataframe, title='Coconut (Grade-I) Trend',x_label='Date', y_label='Modal Price')
+        
+        dataframe = scale_dataframe(dataframe, selected_scaler)
+
+        #For coca
+        WINDOW_SIZE = 3 
+        X_gradeI, y_gradeI= df_to_X_y(dataframe,WINDOW_SIZE)
+        
+        X_train_gradeI, y_train_gradeI = X_gradeI[:1300], y_gradeI[:1300]
+        X_val_gradeI, y_val_gradeI = X_gradeI[1300:1400], y_gradeI[1300:1400]
+        X_test_gradeI, y_test_gradeI = X_gradeI[1400:] ,y_gradeI[1400:] 
+
+        
+        # Create a Streamlit app
+        st.title("Prediction Plots")
+        st.header("Train and Vlaidation Plots")
+        
+        # Display plots for training data
+        st.subheader("Training Data")
+        plot_predictions_streamlit(model=selected_model, X=X_train_gradeI, y=y_train_gradeI,start=0, end=len(X_train_gradeI), tag="Training")
+
+        # Display plots for validation data
+        st.subheader("Validation Data")
+        plot_predictions_streamlit(model=selected_model, X=X_val_gradeI, y=y_val_gradeI, start=0, end=len(X_val_gradeI), tag="Training")
+
+        # Display plots for test data
+        st.subheader("Test Data")
+        plot_predictions_streamlit(model=selected_model, X=X_test_gradeI, y=y_test_gradeI, start=0, end=len(X_test_gradeI), tag="Training")
+
+
+
 

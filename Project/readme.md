@@ -22,7 +22,7 @@ git clone https://github.com/Vij7777pai/AIML-INTERNSHIP.git
 To run the notebooks, you'll need to install the following Python modules using pip:
 
 ```bash
-pip install pandas numpy matplotlib seaborn keras tensorflow scikit-learn
+pip install pandas numpy matplotlib seaborn keras tensorflow scikit-learn ticker openpyxl
 ```
 
 ## Dataset
