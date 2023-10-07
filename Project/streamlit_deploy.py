@@ -246,31 +246,32 @@ if __name__ == '__main__':
         plot_trend(dataframe, title='Arecanut (Coca) Trend', x_label='Date', y_label='Modal Price')
 
         dataframe = scale_dataframe(dataframe, selected_scaler)
+
+        if st.button("Model Statistics"):
+            #For coca
+            WINDOW_SIZE = 3 
+            X_coca, y_coca= df_to_X_y(dataframe,WINDOW_SIZE)
     
-        #For coca
-        WINDOW_SIZE = 3 
-        X_coca, y_coca= df_to_X_y(dataframe,WINDOW_SIZE)
-    
-        X_train_coca, y_train_coca = X_coca[:1500], y_coca[:1500]
-        X_val_coca, y_val_coca = X_coca[1500:1750], y_coca[1500:1750]
-        X_test_coca, y_test_coca = X_coca[1750:] ,y_coca[1750:]
+            X_train_coca, y_train_coca = X_coca[:1500], y_coca[:1500]
+            X_val_coca, y_val_coca = X_coca[1500:1750], y_coca[1500:1750]
+            X_test_coca, y_test_coca = X_coca[1750:] ,y_coca[1750:]
 
     
-        # Create a Streamlit app
-        st.title("Prediction Plots")
-        st.header("Train and Plaidation Plots")
+            # Create a Streamlit app
+            st.title("Prediction Plots")
+            st.header("Train and Plaidation Plots")
     
-        # Display plots for training data
-        st.subheader("Training Data")
-        plot_predictions_streamlit(model=selected_model, X=X_train_coca, y=y_train_coca,start=0, end=len(X_train_coca), tag="Training")
+            # Display plots for training data
+            st.subheader("Training Data")
+            plot_predictions_streamlit(model=selected_model, X=X_train_coca, y=y_train_coca,start=0, end=len(X_train_coca), tag="Training")
 
-        # Display plots for validation data
-        st.subheader("Validation Data")
-        plot_predictions_streamlit(model=selected_model, X=X_val_coca, y=y_val_coca, start=0, end=len(X_val_coca), tag="Training")
+            # Display plots for validation data
+            st.subheader("Validation Data")
+            plot_predictions_streamlit(model=selected_model, X=X_val_coca, y=y_val_coca, start=0, end=len(X_val_coca), tag="Training")
 
-        # Display plots for test data
-        st.subheader("Test Data")
-        plot_predictions_streamlit(model=selected_model, X=X_test_coca, y=y_test_coca, start=0, end=len(X_test_coca), tag="Training")
+            # Display plots for test data
+            st.subheader("Test Data")
+            plot_predictions_streamlit(model=selected_model, X=X_test_coca, y=y_test_coca, start=0, end=len(X_test_coca), tag="Training")
     
 
     # For Coconut    
@@ -346,32 +347,32 @@ if __name__ == '__main__':
 
         plot_trend(dataframe, title='Coconut (Grade-I) Trend',x_label='Date', y_label='Modal Price')
         
-        dataframe = scale_dataframe(dataframe, selected_scaler)
-
-        #For coca
-        WINDOW_SIZE = 3 
-        X_gradeI, y_gradeI= df_to_X_y(dataframe,WINDOW_SIZE)
+        if st.button("Model Statistics"):
+            dataframe = scale_dataframe(dataframe, selected_scaler)
+            #For coca
+            WINDOW_SIZE = 3 
+            X_gradeI, y_gradeI= df_to_X_y(dataframe,WINDOW_SIZE)
         
-        X_train_gradeI, y_train_gradeI = X_gradeI[:1300], y_gradeI[:1300]
-        X_val_gradeI, y_val_gradeI = X_gradeI[1300:1400], y_gradeI[1300:1400]
-        X_test_gradeI, y_test_gradeI = X_gradeI[1400:] ,y_gradeI[1400:] 
+            X_train_gradeI, y_train_gradeI = X_gradeI[:1300], y_gradeI[:1300]
+            X_val_gradeI, y_val_gradeI = X_gradeI[1300:1400], y_gradeI[1300:1400]
+            X_test_gradeI, y_test_gradeI = X_gradeI[1400:] ,y_gradeI[1400:] 
 
         
-        # Create a Streamlit app
-        st.title("Prediction Plots")
-        st.header("Train and Vlaidation Plots")
+            # Create a Streamlit app
+            st.title("Prediction Plots")
+            st.header("Train and Vlaidation Plots")
         
-        # Display plots for training data
-        st.subheader("Training Data")
-        plot_predictions_streamlit(model=selected_model, X=X_train_gradeI, y=y_train_gradeI,start=0, end=len(X_train_gradeI), tag="Training")
+            # Display plots for training data
+            st.subheader("Training Data")
+            plot_predictions_streamlit(model=selected_model, X=X_train_gradeI, y=y_train_gradeI,start=0, end=len(X_train_gradeI), tag="Training")
 
-        # Display plots for validation data
-        st.subheader("Validation Data")
-        plot_predictions_streamlit(model=selected_model, X=X_val_gradeI, y=y_val_gradeI, start=0, end=len(X_val_gradeI), tag="Training")
+            # Display plots for validation data
+            st.subheader("Validation Data")
+            plot_predictions_streamlit(model=selected_model, X=X_val_gradeI, y=y_val_gradeI, start=0, end=len(X_val_gradeI), tag="Training")
 
-        # Display plots for test data
-        st.subheader("Test Data")
-        plot_predictions_streamlit(model=selected_model, X=X_test_gradeI, y=y_test_gradeI, start=0, end=len(X_test_gradeI), tag="Training")
+            # Display plots for test data
+            st.subheader("Test Data")
+            plot_predictions_streamlit(model=selected_model, X=X_test_gradeI, y=y_test_gradeI, start=0, end=len(X_test_gradeI), tag="Training")
 
 
 
