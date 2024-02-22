@@ -167,11 +167,11 @@ if __name__ == '__main__':
 
     # Reading the CSV file for the selected product
     if selected_product == "Arecanut (Coca)":
-        excel_coca = pd.read_excel('./Dataset/Coca/Coca_dataset.xlsx')
+        excel_coca = pd.read_excel('Project\Dataset\Coca\Coca_dataset.xlsx')
         dataframe = pd.DataFrame(excel_coca)
         dataframe = dataframe.set_index('Date')
     elif selected_product == "Coconut (Grade-I)":
-        excel_gradeI = pd.read_excel('./Dataset/Grade-I/grade-I_test.xlsx')
+        excel_gradeI = pd.read_excel('Project\Dataset\Grade-I\grade-I_test.xlsx')
         dataframe = pd.DataFrame(excel_gradeI)
         dataframe = dataframe.set_index('Date')
 
