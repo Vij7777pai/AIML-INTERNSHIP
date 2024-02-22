@@ -154,7 +154,7 @@ if __name__ == '__main__':
 
     # Loading the LSTM model for the selected product
     if selected_product == "Arecanut (Coca)":
-        model_path = 'Project/models/Coca/model_coca(3,3) 83.73.keras'
+        model_path = 'Project/models/Coca/model_coca(3,3) 83.138.keras'
         scaler_path = 'Project/Scaler Objects/scaler_coca.pkl'
     elif selected_product == "Coconut (Grade-I)":
         model_path = 'Project/models/GradeI/model_gradeI(3,3)91.3473-upd.keras'
