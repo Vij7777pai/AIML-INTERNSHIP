@@ -19,11 +19,22 @@ git clone https://github.com/Vij7777pai/AIML-INTERNSHIP.git
 
 ## Installation
 
-To run the notebooks, you'll need to install the following Python modules using pip:
+To run the notebooks, you'll need to set up a Python virtual environment and install the required packages using the provided requirements.txt file.
+
+### Create a Virtual Environment (Python 3.10.11)
 
 ```bash
-pip install pandas numpy matplotlib seaborn keras tensorflow scikit-learn ticker openpyxl
+# Create a new virtual environment named 'project-venv'
+python3.10 -m venv project-venv
+
+# Activate the virtual environment
+source env/bin/activate  # On Unix/macOS
+env\Scripts\activate     # On Windows
+
+# Install the required packages from the requirements.txt file
+pip install -r requirements.txt
 ```
+
 
 ## Dataset
 
