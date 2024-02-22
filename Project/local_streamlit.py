@@ -153,27 +153,28 @@ if __name__ == '__main__':
     selected_product = st.selectbox("Select a Product", ["Arecanut (Coca)", "Coconut (Grade-I)"])
 
     # Loading the LSTM model for the selected product
-    if selected_product == "Arecanut (Coca)":
-        model_path = 'D:\Asus_win64\Code\Python\Machine_Learning\Internship\Internship Repository Fork\aiml-internship\Project\models\Coca\model_coca(3,3) 83.73.keras'
-        scaler_path = 'D:\Asus_win64\Code\Python\Machine_Learning\Internship\Internship Repository Fork\aiml-internship\Project\Scaler Objects\scaler_coca.pkl'
-    elif selected_product == "Coconut (Grade-I)":
-        model_path = 'D:\Asus_win64\Code\Python\Machine_Learning\Internship\Internship Repository Fork\aiml-internship\Project\models\GradeI\model_gradeI(3,3)91.3473-upd.keras'
-        scaler_path = 'D:\Asus_win64\Code\Python\Machine_Learning\Internship\Internship Repository Fork\aiml-internship\Project\Scaler Objects\scaler_grade-I.pkl'
-        
-    # Load the selected model and scaler
-    selected_model = tf.keras.models.load_model(model_path)
-    with open(scaler_path, 'rb') as scaler_file:
-        selected_scaler = joblib.load(scaler_file)
+if selected_product == "Arecanut (Coca)":
+    model_path = 'Project\models\Coca\model_coca(3,3) 83.73.keras'
+    scaler_path = 'Project\Scaler Objects\scaler_coca.pkl'
+elif selected_product == "Coconut (Grade-I)":
+    model_path = 'Project\models\GradeI\model_gradeI(3,3)91.3473-upd.keras'
+    scaler_path = 'Project\Scaler Objects\scaler_grade-I.pkl'
+    
+# Load the selected model and scaler
+selected_model = tf.keras.models.load_model(model_path)
+with open(scaler_path, 'rb') as scaler_file:
+    selected_scaler = joblib.load(scaler_file)
 
-    # Reading the CSV file for the selected product
-    if selected_product == "Arecanut (Coca)":
-        excel_coca = pd.read_excel('D:\Asus_win64\Code\Python\Machine_Learning\Internship\Internship Repository Fork\aiml-internship\Project\Dataset\Coca\Coca_dataset.xlsx')
-        dataframe = pd.DataFrame(excel_coca)
-        dataframe = dataframe.set_index('Date')
-    elif selected_product == "Coconut (Grade-I)":
-        excel_gradeI = pd.read_excel('D:\Asus_win64\Code\Python\Machine_Learning\Internship\Internship Repository Fork\aiml-internship\Project\Dataset\Grade-I\grade-I_test.csv')
-        dataframe = pd.DataFrame(excel_gradeI)
-        dataframe = dataframe.set_index('Date')
+# Reading the CSV file for the selected product
+if selected_product == "Arecanut (Coca)":
+    excel_coca = pd.read_excel('Project\Dataset\Coca\Coca_dataset.xlsx')
+    dataframe = pd.DataFrame(excel_coca)
+    dataframe = dataframe.set_index('Date')
+elif selected_product == "Coconut (Grade-I)":
+    excel_gradeI = pd.read_excel('Project\Dataset\Grade-I\grade-I_test.csv')
+    dataframe = pd.DataFrame(excel_gradeI)
+    dataframe = dataframe.set_index('Date')
+
 
     if selected_product == 'Arecanut (Coca)':
         # Streamlit App
