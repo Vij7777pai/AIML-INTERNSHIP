@@ -157,7 +157,7 @@ if __name__ == '__main__':
         model_path = './models/Coca/model_coca(3,3) 83.73.keras'
         scaler_path = './Scaler Objects/scaler_coca.pkl'
     elif selected_product == "Coconut (Grade-I)":
-        model_path = './models/GradeI/model_gradeI(3,3)91.3473.keras'
+        model_path = 'models\GradeI\model_gradeI(3,3)91.3473-upd.keras'
         scaler_path = './Scaler Objects/scaler_grade-I.pkl'
         
     # Load the selected model and scaler
