@@ -154,11 +154,11 @@ if __name__ == '__main__':
 
     # Loading the LSTM model for the selected product
     if selected_product == "Arecanut (Coca)":
-        model_path = 'Project/models/Coca/model_coca(3,3) 83.138.keras'
-        scaler_path = 'Project/Scaler Objects/scaler_coca.pkl'
+        model_path = 'Project\models\Coca\coca_model.keras'
+        scaler_path = 'Project\Scaler Objects\scaler_coca.pkl'
     elif selected_product == "Coconut (Grade-I)":
-        model_path = 'Project/models/GradeI/model_gradeI(3,3)91.3473-upd.keras'
-        scaler_path = 'Project/Scaler Objects/scaler_grade-I.pkl'
+        model_path = 'Project\models\GradeI\gradeI_model.keras'
+        scaler_path = 'Project\Scaler Objects\scaler_grade-I.pkl'
         
     # Load the selected model and scaler
     selected_model = tf.keras.models.load_model(model_path)
@@ -167,11 +167,11 @@ if __name__ == '__main__':
     
     # Reading the CSV file for the selected product
     if selected_product == "Arecanut (Coca)":
-        excel_coca = pd.read_excel('Project/Dataset/Coca/Coca_dataset.xlsx')
+        excel_coca = pd.read_excel('Project\Dataset\Coca\Coca_dataset.xlsx')
         dataframe = pd.DataFrame(excel_coca)
         dataframe = dataframe.set_index('Date')
     elif selected_product == "Coconut (Grade-I)":
-        excel_gradeI = pd.read_excel('Project/Dataset/Grade-I/grade-I_test.csv')
+        excel_gradeI = pd.read_excel('Project\Dataset\Grade-I\grade-I_test.xlsx')
         dataframe = pd.DataFrame(excel_gradeI)
         dataframe = dataframe.set_index('Date')
 
