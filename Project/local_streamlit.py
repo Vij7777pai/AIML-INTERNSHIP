@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from sklearn.metrics import mean_absolute_error, r2_score
+from tensorflow import keras
 
 st.markdown("""
 ### About the Model
@@ -14,6 +15,17 @@ st.markdown("""
 :blossom::seedling::moneybag:
 
 """)
+
+def create_model():
+    model = keras.models.Sequential([
+        keras.layers.InputLayer(input_shape=(3, 3)),
+        keras.layers.LSTM(64),
+        keras.layers.Dense(64, activation='relu'),
+        keras.layers.Dense(30, activation='relu'),
+        keras.layers.Dense(3)
+    ])
+    return model
+
 
 def scale_dataframe(dataframe_dummy, selected_scaler):
     # Scale the data using the selected scaler
@@ -154,14 +166,18 @@ if __name__ == '__main__':
 
     # Loading the LSTM model for the selected product
     if selected_product == "Arecanut (Coca)":
-        model_path = 'Project/models/Coca/model_coca(3,3) 83.73.keras'
+        model = create_model()
+        model.load_weights('Project/models/Coca/coca_model.weights.h5') 
+        # model_path = 'Project\models\Coca\coca_model.keras'
         scaler_path = 'Project/Scaler Objects/scaler_coca.pkl'
     elif selected_product == "Coconut (Grade-I)":
-        model_path = 'Project/models/GradeI/model_gradeI(3,3)91.3473-upd.keras'
+        model = create_model()
+        model.load_weights('Project/models/GradeI/gradeI_model.weights.h5')
+        # model_path = 'Project\models\GradeI\gradeI_model.keras'
         scaler_path = 'Project/Scaler Objects/scaler_grade-I.pkl'
         
     # Load the selected model and scaler
-    selected_model = tf.keras.models.load_model(model_path)
+    selected_model = model
     with open(scaler_path, 'rb') as scaler_file:
         selected_scaler = joblib.load(scaler_file)
     
@@ -171,7 +187,7 @@ if __name__ == '__main__':
         dataframe = pd.DataFrame(excel_coca)
         dataframe = dataframe.set_index('Date')
     elif selected_product == "Coconut (Grade-I)":
-        excel_gradeI = pd.read_excel('Project/Dataset/Grade-I/grade-I_test.csv')
+        excel_gradeI = pd.read_excel('Project/Dataset/Grade-I/grade-I_test.xlsx')
         dataframe = pd.DataFrame(excel_gradeI)
         dataframe = dataframe.set_index('Date')
 
@@ -374,3 +390,7 @@ if __name__ == '__main__':
             # Display plots for test data
             st.subheader("Test Data")
             plot_predictions_streamlit(model=selected_model, X=X_test_gradeI, y=y_test_gradeI, start=0, end=len(X_test_gradeI), tag="Training")
+
+
+
+
